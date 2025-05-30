@@ -16,7 +16,7 @@ import paymentRoute from './routes/payment.js';
 import dashboardRoute from './routes/stats.js';
 
 config({
-    path:"./.env"
+    path: "./.env"
 })
 
 const port = process.env.PORT || 4000;
@@ -26,13 +26,14 @@ connectDB(mongoURI)
 export const stripe = new Stripe(stripeKey)
 export const myCache = new NodeCache();
 const app = express();
-app.use(express.json()); 
-app.use(morgan("dev")); 
+app.use(express.json());
+app.use(morgan("dev"));
 app.use(cors({
-    origin:["http://localhost:5173","https://ecom-frontend-ivory.vercel.app/"]
+    origin: ["http://localhost:5173", "https://ecom-frontend-ivory.vercel.app"],
+    credentials: true
 }));
 
-app.get("/",(req, res)=>{
+app.get("/", (req, res) => {
     res.send("Api Working with /api/v1")
     res.status(200);
 })
@@ -52,5 +53,5 @@ app.use(errorMiddleware)
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
-    
+
 })
